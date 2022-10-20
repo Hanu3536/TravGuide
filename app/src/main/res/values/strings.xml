@@ -47,4 +47,7 @@
     <string name="trav_guide">Trav Guide</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="travis_guide_title">Travis Guide</string>
+    <string name="profile_image">profile image</string>
+    <string name="get_suggestions">Get Suggestions</string>
 </resources>
