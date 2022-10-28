@@ -3,12 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/travisHomePageFragment">
+    app:startDestination="@id/travisLoginFragment">
 
+
+    <fragment
+        android:id="@+id/travisLoginFragment"
+        android:name="com.capstone.travguide.TravisLoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_travis_login" >
+        <action
+            android:id="@+id/action_travisLoginFragment_to_travisHomePageFragment"
+            app:destination="@id/travisHomePageFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/travisHomePageFragment"
         android:name="com.capstone.travguide.TravisHomePageFragment"
         android:label="fragment_travis_home_page"
         tools:layout="@layout/fragment_travis_home_page" />
+
+
 </navigation>

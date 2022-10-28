@@ -14,49 +14,68 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.navigation.fragment.findNavController
+import com.capstone.travguide.databinding.FragmentTravisHomePageBinding
 
 
 class TravisHomePageFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
+    private lateinit var binding: FragmentTravisHomePageBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_travis_home_page, container, false)
+        binding = FragmentTravisHomePageBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.ivProfile.setOnClickListener {
+            findNavController().navigateUp()
+        }
+//        locationPermissionRequesting()
+    }
+
+    private fun locationPermissionRequesting() {
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
             when {
                 permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                     // Precise location access granted.
-                    Toast.makeText(context, "Precise Location Permission Granted!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Precise Location Permission Granted!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     getCurrentLocation()
                 }
                 permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
                     // Only approximate location access granted.
-                    Toast.makeText(context, "Approximate Location Permission Granted!", Toast.LENGTH_SHORT).show()
-                } else -> {
-                // No location access granted.
-                Toast.makeText(context, "No Location Access Granted!", Toast.LENGTH_SHORT).show()
-            }
+                    Toast.makeText(
+                        context,
+                        "Approximate Location Permission Granted!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    // No location access granted.
+                    Toast.makeText(context, "No Location Access Granted!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
 
-        locationPermissionRequest.launch(arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION))
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
     }
 
     private fun getCurrentLocation() {
