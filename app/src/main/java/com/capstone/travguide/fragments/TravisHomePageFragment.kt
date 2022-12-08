@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.capstone.travguide.R
+import com.capstone.travguide.TravisActivity
 import com.capstone.travguide.databinding.FragmentTravisHomePageBinding
 import java.util.*
 
@@ -51,10 +52,6 @@ class TravisHomePageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.ivProfile.setOnClickListener {
-            findNavController().navigateUp()
-        }
-
         binding.ivTextMic.setOnClickListener {
             speechToTextConvert()
         }
@@ -79,6 +76,12 @@ class TravisHomePageFragment : Fragment() {
         binding.btnPrivacyPolicy.setOnClickListener {
             findNavController().navigate(R.id.action_travisHomePageFragment_to_travisPrivacyPolicyFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        (activity as TravisActivity).toolBarVisible()
     }
 
     private fun speechToTextConvert() {

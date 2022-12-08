@@ -12,9 +12,9 @@ class TravisDataRepository {
 
     private val travisService: TravisService = TravisDataSource.travisRetrofitInstance()
 
-    suspend fun getAllLocations(): Flow<TravisNetworkResult<List<Location>>> {
+    suspend fun getAllLocations(latitude: String, longitude: String): Flow<TravisNetworkResult<List<Location>>> {
         try {
-            val locationsResult = travisService.getAllLocations()
+            val locationsResult = travisService.getAllLocations(latitude, longitude)
             if (locationsResult.body() != null) {
                 return flow<TravisNetworkResult<List<Location>>> {
                     emit(TravisNetworkResult.Success(data = locationsResult.body() as List<Location>))

@@ -22,10 +22,13 @@ data class Location(
     @SerializedName("description")
     var description: String? = null,
 
-    @SerializedName("summary")
-    var summary: String? = null,
+    @SerializedName("mapdirections")
+    var mapDirections: String? = null,
 
     @SerializedName("hyperlinks")
-    var hyperlinks: String? = null
+    var hyperlinks: String? = null,
+
+    @SerializedName("distancekm")
+    var distanceKm: String? = null
 
 )

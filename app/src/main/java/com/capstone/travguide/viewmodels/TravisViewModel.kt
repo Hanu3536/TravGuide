@@ -18,9 +18,9 @@ class TravisViewModel : ViewModel() {
     private val _locationsFlow: MutableStateFlow<TravisNetworkResult<List<Location>>> = MutableStateFlow(TravisNetworkResult.Loading())
     val locationsFlow: StateFlow<TravisNetworkResult<List<Location>>> get() = _locationsFlow
 
-    fun getAllLocations() {
+    fun getAllLocations(latitude: Double, longitude: Double) {
         viewModelScope.launch {
-            travisDataRepository.getAllLocations().collectLatest {
+            travisDataRepository.getAllLocations(latitude.toString(), longitude.toString()).collectLatest {
                 _locationsFlow.emit(it)
             }
         }

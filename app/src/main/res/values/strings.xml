@@ -43,11 +43,8 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <string name="hello_world">Hello World</string>
-    <string name="trav_guide">Trav Guide</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="travis_guide_title">Travis Guide</string>
     <string name="profile_image">profile image</string>
     <string name="get_suggestions">Get Suggestions</string>
+    <string name="suggestions_long_text">Suggestion 1: Click the applicatiom and provide access to your location.\n\nSuggestion 2: Click the locate button on top left corner to get the places to visit around you and their, history, images, directions and the website link to learn more about the place.</string>
 </resources>

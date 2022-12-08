@@ -6,8 +6,11 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.capstone.travguide.TravisConstants.TRAVIS_BASE_URL
 import com.capstone.travguide.databinding.LayoutLocationListItemBinding
 import com.capstone.travguide.models.Location
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 
 
 class TravisLocationsRecyclerAdapter(
@@ -23,18 +26,34 @@ class TravisLocationsRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: TravisLocationsViewHolder, position: Int) {
-        holder.bind(locations[position])
+        holder.bind(locations[position], position + 1)
     }
 
     override fun getItemCount(): Int = locations.size
 
 
     inner class TravisLocationsViewHolder(private val item: LayoutLocationListItemBinding): RecyclerView.ViewHolder(item.root) {
-        fun bind(location: Location) {
+        fun bind(location: Location, index: Int) {
             item.apply {
-                tvLocationTitle.text = "${location.id}. ${location.place}"
-                tvLocationDescription.text = "Description: \n ${location.description}"
-                tvLocationDirections.text = location.hyperlinks
+                isLocationImages.setImageList(
+                    mutableListOf<SlideModel>().apply {
+                        location.images?.split(", ")?.forEach {
+                            add(SlideModel(imageUrl = "$TRAVIS_BASE_URL/images/$it", scaleType = ScaleTypes.FIT))
+                        }
+                    }.toList()
+                )
+
+                tvLocationTitle.text = "$index. ${location.place}"
+                tvLocationDistance.text = "${location.distanceKm} Kms"
+                tvLocationDescription.text = location.description
+                tvExternalHyperlink.text = location.hyperlinks
+                tvLocationDirections.text = location.mapDirections
+
+                tvExternalHyperlink.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(location.hyperlinks)
+                    context.startActivity(intent)
+                }
 
                 tvLocationDirections.setOnClickListener {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(location.hyperlinks))

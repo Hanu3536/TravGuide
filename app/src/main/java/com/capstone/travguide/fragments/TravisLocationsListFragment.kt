@@ -46,7 +46,10 @@ class TravisLocationsListFragment : Fragment() {
                 when (locationsResult) {
                     is TravisNetworkResult.Loading -> {}
                     is TravisNetworkResult.Success -> {
-                        locationsRecyclerAdapter = TravisLocationsRecyclerAdapter(requireContext(), locationsResult.data!!)
+                        locationsRecyclerAdapter = TravisLocationsRecyclerAdapter(
+                            requireContext(),
+                            locationsResult.data!!.sortedBy { location -> location.distanceKm }
+                        )
                         binding.rvLocationsList.adapter = locationsRecyclerAdapter
                     }
                     is TravisNetworkResult.Error -> {
@@ -83,7 +86,7 @@ class TravisLocationsListFragment : Fragment() {
                 }
                 else -> {
                     // No location access granted.
-                    Toast.makeText(context, "No Location Access Granted!", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, "No Location Access Granted! Please grant the access to see locations near you!", Toast.LENGTH_LONG)
                         .show()
                 }
             }
@@ -129,13 +132,12 @@ class TravisLocationsListFragment : Fragment() {
             locationByGps = lastKnownLocationByGps
         }
 
-        if (locationByGps != null) {
-            Log.e("Location lat lon", "Latitude : ${locationByGps!!.latitude} and Longitude : ${locationByGps!!.longitude}")
+        locationByGps?.let { gpsLocation ->
+            Log.e("Location lat lon", "Latitude : ${gpsLocation.latitude} and Longitude : ${gpsLocation.longitude}")
 
-            binding.tvLocationName.text = getRegionName(locationByGps!!.latitude, locationByGps!!.longitude)
+            binding.tvLocationName.append(getRegionName(gpsLocation.latitude, gpsLocation.longitude))
+            travisViewModel.getAllLocations(gpsLocation.latitude, gpsLocation.longitude)
         }
-
-        travisViewModel.getAllLocations()
     }
 
     private fun getRegionName(latitude: Double, longitude: Double): String {

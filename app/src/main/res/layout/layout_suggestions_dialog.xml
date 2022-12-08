@@ -13,7 +13,7 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Suggestion1\nSuggestion2"
-        tools:text="Suggestion1\nSuggestion2" />
+        android:text="@string/suggestions_long_text"
+        tools:text="@string/suggestions_long_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
