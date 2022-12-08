@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/travisLoginFragment"
-        android:name="com.capstone.travguide.TravisLoginFragment"
+        android:name="com.capstone.travguide.fragments.TravisLoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_travis_login" >
         <action
@@ -22,9 +22,28 @@
 
     <fragment
         android:id="@+id/travisHomePageFragment"
-        android:name="com.capstone.travguide.TravisHomePageFragment"
+        android:name="com.capstone.travguide.fragments.TravisHomePageFragment"
         android:label="fragment_travis_home_page"
-        tools:layout="@layout/fragment_travis_home_page" />
+        tools:layout="@layout/fragment_travis_home_page" >
+        <action
+            android:id="@+id/action_travisHomePageFragment_to_travisLocationsListFragment"
+            app:destination="@id/travisLocationsListFragment" />
+
+        <action
+            android:id="@+id/action_travisHomePageFragment_to_travisPrivacyPolicyFragment"
+            app:destination="@id/travisPrivacyPolicyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/travisLocationsListFragment"
+        android:name="com.capstone.travguide.fragments.TravisLocationsListFragment"
+        android:label="fragment_travis_locations_list"
+        tools:layout="@layout/fragment_travis_locations_list" />
+    <fragment
+        android:id="@+id/travisPrivacyPolicyFragment"
+        android:name="com.capstone.travguide.fragments.TravisPrivacyPolicyFragment"
+        android:label="fragment_travis_privacy_policy"
+        tools:layout="@layout/fragment_travis_privacy_policy" />
 
 
 </navigation>
