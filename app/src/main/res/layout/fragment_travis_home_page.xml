@@ -16,6 +16,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:text="@string/get_suggestions"
+        android:backgroundTint="@color/cardview_dark_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btn_locate"
@@ -30,6 +31,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="12dp"
         android:text="Locate"
+        android:backgroundTint="@color/cardview_dark_background"
         app:layout_constraintEnd_toStartOf="@+id/btn_get_suggestions"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +89,7 @@
         android:layout_marginBottom="24dp"
         android:paddingHorizontal="24dp"
         android:text="Privacy Policy"
+        android:backgroundTint="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

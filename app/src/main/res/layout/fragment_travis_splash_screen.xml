@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Travis Guide"
+        android:text="TravisGuide"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="48sp"

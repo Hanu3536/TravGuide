@@ -64,7 +64,11 @@ class TravisActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_profile -> {
-                navController.navigate(R.id.action_travisHomePageFragment_to_travisProfilePageFragment)
+                checkAndGetGoogleUser()?.let {
+                    navController.navigate(R.id.action_travisHomePageFragment_to_travisProfilePageFragment)
+                } ?: run {
+                    navController.navigate(R.id.action_travisHomePageFragment_to_travisLoginFragment)
+                }
                 true
             }
             R.id.action_logout -> {

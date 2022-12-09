@@ -3,8 +3,10 @@ package com.capstone.travguide.adapters
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.travguide.TravisConstants.TRAVIS_BASE_URL
 import com.capstone.travguide.databinding.LayoutLocationListItemBinding
@@ -56,14 +58,18 @@ class TravisLocationsRecyclerAdapter(
                 }
 
                 tvLocationDirections.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(location.hyperlinks))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(location.mapDirections))
 
-                    intent.setClassName(
-                        "com.google.android.apps.maps",
-                        "com.google.android.maps.MapsActivity"
-                    )
+                    Log.e("MAPS URL", location.mapDirections.toString())
 
-                    context.startActivity(intent)
+                    intent.setPackage("com.google.android.apps.maps")
+
+                    intent.resolveActivity(context.packageManager)?.let {
+                        context.startActivity(intent)
+                    } ?: run {
+                        Toast.makeText(context, "Cannot Open Maps!", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             }
         }
