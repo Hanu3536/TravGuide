@@ -48,7 +48,16 @@
         android:id="@+id/travisLocationsListFragment"
         android:name="com.capstone.travguide.fragments.TravisLocationsListFragment"
         android:label="fragment_travis_locations_list"
-        tools:layout="@layout/fragment_travis_locations_list" />
+        tools:layout="@layout/fragment_travis_locations_list" >
+        <action
+            android:id="@+id/action_travisLocationsListFragment_to_travisProfilePageFragment"
+            app:destination="@id/travisProfilePageFragment" />
+        <action
+            android:id="@+id/action_travisLocationsListFragment_to_travisLoginFragment"
+            app:destination="@id/travisLoginFragment"
+            app:popUpTo="@id/travisLocationsListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/travisPrivacyPolicyFragment"
         android:name="com.capstone.travguide.fragments.TravisPrivacyPolicyFragment"

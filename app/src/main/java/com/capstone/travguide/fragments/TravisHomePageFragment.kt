@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.capstone.travguide.R
 import com.capstone.travguide.TravisActivity
 import com.capstone.travguide.databinding.FragmentTravisHomePageBinding
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 
@@ -43,8 +44,7 @@ class TravisHomePageFragment : Fragment() {
                 val result: ArrayList<String> =
                     it.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
 
-                binding.tvSpeechText.text = Objects.requireNonNull(result)[0]
-                binding.tvSpeechText.visibility = View.VISIBLE
+                navigateBasedOnCommand(Objects.requireNonNull(result)[0])
             }
         }
     }
@@ -61,16 +61,7 @@ class TravisHomePageFragment : Fragment() {
         }
 
         binding.btnGetSuggestions.setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Here are the Suggestions : ")
-            builder.setView(R.layout.layout_suggestions_dialog)
-            builder.setCancelable(true)
-            builder.setPositiveButton("Okay") { dialog: DialogInterface?, _: Int ->
-                dialog?.dismiss()
-            }
-            val alertDialog: AlertDialog = builder.create()
-
-            alertDialog.show()
+            getSuggestionsDialog()
         }
 
         binding.btnPrivacyPolicy.setOnClickListener {
@@ -104,6 +95,33 @@ class TravisHomePageFragment : Fragment() {
                     this@TravisHomePageFragment.context, " " + e.message,
                     Toast.LENGTH_SHORT
                 ).show()
+        }
+    }
+
+    private fun getSuggestionsDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Here are the Suggestions : ")
+        builder.setView(R.layout.layout_suggestions_dialog)
+        builder.setCancelable(true)
+        builder.setPositiveButton("Okay") { dialog: DialogInterface?, _: Int ->
+            dialog?.dismiss()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun navigateBasedOnCommand(command: String) {
+        when (command.lowercase()) {
+            "locate" -> {
+                findNavController().navigate(R.id.action_travisHomePageFragment_to_travisLocationsListFragment)
+            }
+            "get suggestions" -> {
+                getSuggestionsDialog()
+            }
+            "privacy policy" -> {
+                findNavController().navigate(R.id.action_travisHomePageFragment_to_travisPrivacyPolicyFragment)
+            }
+            else -> Snackbar.make(binding.root, "Sorry! Command Not Available!", Snackbar.LENGTH_LONG).show()
         }
     }
 }

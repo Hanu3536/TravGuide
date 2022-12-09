@@ -6,13 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".fragments.TravisSplashScreenFragment">
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/travis_guide_logo"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TravisGuide"
         android:gravity="center"
+        android:text="TravisGuide"
         android:textColor="@color/black"
         android:textSize="48sp"
         android:textStyle="bold|italic"

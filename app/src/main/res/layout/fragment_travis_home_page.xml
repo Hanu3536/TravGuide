@@ -72,13 +72,14 @@
             android:contentDescription="" />
 
         <TextView
-            android:id="@+id/tv_speech_text"
+            android:id="@+id/tv_mic_instructions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="invisible"
-            android:text="speech to text" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="Click on Mic and speak to Navigate\nFor example say 'Locate'" />
 
     </LinearLayout>
 

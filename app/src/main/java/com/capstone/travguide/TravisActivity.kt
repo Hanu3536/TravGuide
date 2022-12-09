@@ -1,12 +1,15 @@
 package com.capstone.travguide
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -65,9 +68,19 @@ class TravisActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_profile -> {
                 checkAndGetGoogleUser()?.let {
-                    navController.navigate(R.id.action_travisHomePageFragment_to_travisProfilePageFragment)
+                    if (navController.currentDestination?.label.toString() == "fragment_travis_home_page") {
+                        navController.navigate(R.id.action_travisHomePageFragment_to_travisProfilePageFragment)
+                    } else {
+                        navController.navigate(R.id.action_travisLocationsListFragment_to_travisProfilePageFragment)
+                    }
+
                 } ?: run {
-                    navController.navigate(R.id.action_travisHomePageFragment_to_travisLoginFragment)
+                    if (navController.currentDestination?.label.toString() == "fragment_travis_home_page") {
+                        navController.navigate(R.id.action_travisHomePageFragment_to_travisLoginFragment)
+                    } else {
+                        navController.navigate(R.id.action_travisLocationsListFragment_to_travisLoginFragment)
+                    }
+
                 }
                 true
             }
@@ -77,7 +90,22 @@ class TravisActivity : AppCompatActivity() {
                 navController.navigate(R.id.action_travisHomePageFragment_to_travisLoginFragment)
                 true
             }
-            R.id.action_support -> { true }
+            R.id.action_support -> {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this@TravisActivity)
+                builder.setTitle("Contact Us")
+                builder.setMessage("Please contact us for queries : travisguideca007@gmail.com")
+                builder.setCancelable(true)
+                builder.setPositiveButton("Okay") { dialog: DialogInterface?, _: Int ->
+                    dialog?.dismiss()
+                }
+                builder.setNeutralButton("Email Us") { _: DialogInterface?, _: Int ->
+                    sendEmailIntent()
+                }
+                val alertDialog: AlertDialog = builder.create()
+                alertDialog.show()
+
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -120,5 +148,15 @@ class TravisActivity : AppCompatActivity() {
 
     fun toolBarVisible(isVisible: Boolean = true) {
         binding.toolbar.visibility = if(isVisible) View.VISIBLE else View.GONE
+    }
+
+    private fun sendEmailIntent() {
+        val emailIntent = Intent(
+            Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "travisguideca007@gmail.com", null
+            )
+        )
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Regarding support...")
+        startActivity(Intent.createChooser(emailIntent, "Send email..."))
     }
 }
